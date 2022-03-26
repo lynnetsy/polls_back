@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  ms_aq_users:
+    container_name: ms_aq_users
+    build: .
+    ports:
+    - 8080:5000
+    volumes:
+    - ./:/app
+    environment:
+    - FLASK_ENV=development
+    depends_on:
+    - ms_aq_db
+    networks:
+    - aqUsersNetwork
+
+  ms_aq_db:
+    container_name: ms_aq_db
+    image: postgres
+    ports:
+    - 5432:5432
+    volumes:
+    - aqUsersDbVolume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ms_users
+      POSTGRES_USER: ms_users
+      POSTGRES_PASSWORD: secret
+    networks:
+    - aqUsersNetwork
+
+
+volumes:
+  aqUsersDbVolume:
+    driver: local
+
+
+networks:
+  aqUsersNetwork:
+    driver: "bridge"
