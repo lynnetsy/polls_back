@@ -1,12 +1,13 @@
 from flask import jsonify
 from ms import app
-from .roles import *
-from .auth import *
-from .admin import *
-from .account import *
+from ms.controllers import PollController
 
 
 url_prefix = app.config.get('URL_PREFIX')
+
+@app.route(f"{url_prefix}", methods=["POST"])
+def add():
+    return PollController().add()
 
 
 @app.route(f"{url_prefix}/about")

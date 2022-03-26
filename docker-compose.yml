@@ -1,8 +1,8 @@
 version: '3.9'
 
 services:
-  ms_aq_users:
-    container_name: ms_aq_users
+  polls_flask:
+    container_name: polls_flask
     build: .
     ports:
     - 8080:5000
@@ -11,30 +11,29 @@ services:
     environment:
     - FLASK_ENV=development
     depends_on:
-    - ms_aq_db
+    - polls_db
     networks:
-    - aqUsersNetwork
+    - pollsNetwork
 
-  ms_aq_db:
-    container_name: ms_aq_db
+  polls_db:
+    container_name: polls_db
     image: postgres
     ports:
     - 5432:5432
     volumes:
-    - aqUsersDbVolume:/var/lib/postgresql/data
+    - pollsDbVolume:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ms_users
-      POSTGRES_USER: ms_users
+      POSTGRES_DB: polls
+      POSTGRES_USER: polls
       POSTGRES_PASSWORD: secret
     networks:
-    - aqUsersNetwork
-
+    - pollsNetwork
 
 volumes:
-  aqUsersDbVolume:
+  pollsDbVolume:
     driver: local
 
 
 networks:
-  aqUsersNetwork:
+  pollsNetwork:
     driver: "bridge"
