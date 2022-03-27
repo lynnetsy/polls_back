@@ -13,7 +13,7 @@ class PollSeeder(Seeder):
         ranges = ["18-25", "26-33", "34-40", "40+"]
         genders = ["M", "F"]
         sn = ["Facebook", "Whatsapp", "Twitter", "Instagram", "TikTok"]
-        for _ in range(50):
+        for _ in range(10):
             poll = Poll({
                 "email": faker.email(),
                 "range_age": random.choice(ranges),

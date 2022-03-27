@@ -9,6 +9,9 @@ url_prefix = app.config.get('URL_PREFIX')
 def add():
     return PollController().add()
 
+@app.route(f"{url_prefix}/stats", methods=["GET"])
+def stats():
+    return PollController().stats()
 
 @app.route(f"{url_prefix}/about")
 def about():
