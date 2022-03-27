@@ -8,18 +8,11 @@ class PollController():
         self.pollRepo = PollRepository()
 
     def stats(self):
-        fav, less_fav = self.pollRepo.favsocialnet()
+        fav = self.pollRepo.favsocialnet()
         return jsonify({
             "total": self.pollRepo.total(),
             "avg_time": self.pollRepo.avgTime(),
-            "favorite": {
-                "label": fav[0],
-                "total": fav[1]
-            },
-            "less_fav": {
-                "label": less_fav[0],
-                "total": less_fav[1]
-            },
+            "favorite": fav,
             "per_sn": self.pollRepo.per_sn()
         }), 200
 

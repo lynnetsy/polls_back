@@ -28,12 +28,12 @@ class PollRepository(Repository):
             "twitter": round(res[1], 2),
             "whatsapp": round(res[2], 2),
             "instagram": round(res[3], 2),
-            "tiktok:": round(res[4], 2)
+            "tiktok": round(res[4], 2)
         }
 
     def favsocialnet(self):
         label = func.count(Poll.favsn).label('total')
-        fav = db.session.query(
+        favs = db.session.query(
             Poll.favsn,
             label
         )\
@@ -41,7 +41,13 @@ class PollRepository(Repository):
             .order_by(label.desc())\
             .all()
 
-        return fav[0], fav[-1]
+        res = []
+        for sn in favs:
+            res.append({
+                "label": sn[0],
+                "total": sn[1]
+            })
+        return res
 
     def per_sn(self):
         sn = {
